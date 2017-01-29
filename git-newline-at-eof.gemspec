@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'git/newline/at/eof/version'
+require 'git-newline-at-eof/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "git-newline-at-eof"
-  spec.version       = Git::Newline::At::Eof::VERSION
+  spec.version       = GitNewlineAtEof::VERSION
   spec.authors       = ["Code Ass"]
   spec.email         = ["aycabta@gmail.com"]
 
