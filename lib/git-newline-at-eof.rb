@@ -1,20 +1,16 @@
 require 'git-newline-at-eof/version'
-require 'git'
 
 module GitNewlineAtEof
   class Manager
     def initialize
-      @git = Git.open('.')
     end
 
     def files
-      @git.ls_files.delete_if { |file|
-        file.nil? || !file.instance_of?(String)
-      }.map { |file|
-        filename = file.first
+      `git ls-files`.split("\n").map { |filename|
+        filepath = current_dir(filename)
         num = 0
         begin
-          num = File.open(filename, 'rt') { |f| count_last_newlines(f) }
+          num = File.open(filepath, 'rt') { |f| count_last_newlines(f) }
         rescue
           num = nil
         end
@@ -43,5 +39,15 @@ module GitNewlineAtEof
       end
     end
     private :count_last_newlines
+
+    def repository_toplevel_dir
+      `git rev-parse --show-toplevel`.chomp
+    end
+    private :repository_toplevel_dir
+
+    def current_dir(filename)
+      File.join(repository_toplevel_dir, `git rev-parse --show-prefix`.chomp, filename)
+    end
+    private :current_dir
   end
 end
