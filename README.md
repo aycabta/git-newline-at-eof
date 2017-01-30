@@ -2,17 +2,7 @@
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'git-newline-at-eof'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
+Install it yourself as:
 
     $ gem install git-newline-at-eof
 
