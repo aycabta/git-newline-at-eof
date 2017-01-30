@@ -18,7 +18,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/git-newline-at-eof.
+Bug reports and pull requests are welcome on GitHub at https://github.com/aycabta/git-newline-at-eof.
 
 
 ## License
