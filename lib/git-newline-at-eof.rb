@@ -6,6 +6,17 @@ module GitNewlineAtEof
       @files = files
     end
 
+    def treat_all
+      @files.each do |f|
+        if f[:last_newlines_num] == 0
+          feed_last_line(f[:filename])
+        end
+        if f[:last_newlines_num] > 1
+          discard_newline(f[:filename], f[:last_newlines_num] - 1)
+        end
+      end
+    end
+
     def feed_last_line_all
       @files.each do |f|
         if f[:last_newlines_num] == 0
