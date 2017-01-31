@@ -8,6 +8,7 @@ require 'optparse'
 feed_last_line = false
 discard_last_newline = false
 treat_all = false
+check_all = false
 
 opt = OptionParser.new
 opt.on('-f', '--feed-last-line') { |v|
@@ -21,9 +22,18 @@ opt.on('-a', '--treat-all') { |v|
   feed_last_line = false
   discard_last_newline = false
 }
+opt.on('-c', '--check-all') { |v|
+  check_all = true
+  treat_all = false
+  feed_last_line = false
+  discard_last_newline = false
+}
 opt.parse!(ARGV)
 
 app = GitNewlineAtEof::Application.new
+if check_all
+  app.check_all
+end
 if treat_all
   app.treat_all
 end

@@ -6,6 +6,18 @@ module GitNewlineAtEof
       @files = files
     end
 
+    def check_all
+      @files.each do |f|
+        if f[:last_newlines_num] == 0
+          puts "#{f[:filename]}: no newline at end of file"
+        end
+        if f[:last_newlines_num] > 1
+          discarded_num = f[:last_newlines_num] - 1
+          puts "#{f[:filename]}: discarded #{discarded_num} newline#{discarded_num > 1 ? 's' : ''} at end of file"
+        end
+      end
+    end
+
     def treat_all
       @files.each do |f|
         if f[:last_newlines_num] == 0
