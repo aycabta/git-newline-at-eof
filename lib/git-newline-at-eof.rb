@@ -1,7 +1,7 @@
 require 'git-newline-at-eof/version'
 
 module GitNewlineAtEof
-  class Manager
+  class Application
     def initialize
     end
 
