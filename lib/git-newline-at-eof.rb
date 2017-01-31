@@ -24,7 +24,7 @@ module GitNewlineAtEof
           feed_last_line(f[:filename])
         end
         if f[:last_newlines_num] > 1
-          discard_newline(f[:filename], f[:last_newlines_num] - 1)
+          discard_last_newline(f[:filename], f[:last_newlines_num] - 1)
         end
       end
     end
