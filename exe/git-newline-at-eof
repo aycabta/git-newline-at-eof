@@ -11,35 +11,22 @@ treat_all = false
 check_all = false
 
 opt = OptionParser.new
-opt.on('-f', '--feed-last-line') { |v|
-  feed_last_line = true
-}
-opt.on('-d', '--discard-last-newline') { |v|
-  discard_last_newline = true
-}
-opt.on('-a', '--treat-all') { |v|
-  treat_all = true
-  feed_last_line = false
-  discard_last_newline = false
-}
-opt.on('-c', '--check-all') { |v|
-  check_all = true
-  treat_all = false
-  feed_last_line = false
-  discard_last_newline = false
-}
+opt.on('-f', '--feed-last-line') { |v| feed_last_line = true }
+opt.on('-d', '--discard-last-newline') { |v| discard_last_newline = true }
+opt.on('-a', '--treat-all') { |v| treat_all = true }
+opt.on('-c', '--check-all') { |v| check_all = true }
 opt.parse!(ARGV)
 
 app = GitNewlineAtEof::Application.new
 if check_all
   app.check_all
-end
-if treat_all
+elsif treat_all
   app.treat_all
-end
-if feed_last_line
-  app.feed_last_line_all
-end
-if discard_last_newline
-  app.discard_last_newline_all
+else
+  if feed_last_line
+    app.feed_last_line_all
+  end
+  if discard_last_newline
+    app.discard_last_newline_all
+  end
 end
