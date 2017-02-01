@@ -12,7 +12,7 @@ module GitNewlineAtEof
       @options[:check_all] = false
       @options[:opted] = false
 
-      opt = OptionParser.new
+      @opt = OptionParser.new
       [
         [
           '-f', '--feed-last-line',
@@ -50,12 +50,15 @@ module GitNewlineAtEof
           }
         ]
       ].each do |short, long, desc, proc_obj|
-        opt.on(short, long, desc, &proc_obj)
+        @opt.on(short, long, desc, &proc_obj)
       end
-      opt.parse!(argv)
+      @opt.parse!(argv)
     end
 
     def run
+      unless @options[:opted]
+        puts @opt.help
+      end
       if @options[:check_all]
         check_all
       elsif @options[:treat_all]
