@@ -1,9 +1,36 @@
 require 'git-newline-at-eof/version'
+require 'optparse'
 
 module GitNewlineAtEof
   class Application
-    def initialize
+    def initialize(argv)
       @files = files
+      @is_feed_last_line = false
+      @is_discard_last_newline = false
+      @is_treat_all = false
+      @is_check_all = false
+
+      opt = OptionParser.new
+      opt.on('-f', '--feed-last-line') { |v| @is_feed_last_line = true }
+      opt.on('-d', '--discard-last-newline') { |v| @is_discard_last_newline = true }
+      opt.on('-a', '--treat-all') { |v| @is_treat_all = true }
+      opt.on('-c', '--check-all') { |v| @is_check_all = true }
+      opt.parse!(argv)
+    end
+
+    def run
+      if @is_check_all
+        check_all
+      elsif @is_treat_all
+        treat_all
+      else
+        if @is_feed_last_line
+          feed_last_line_all
+        end
+        if @is_discard_last_newline
+          discard_last_newline_all
+        end
+      end
     end
 
     def check_all
