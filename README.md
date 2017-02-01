@@ -6,6 +6,20 @@ Install it yourself as:
 
     $ gem install git-newline-at-eof
 
+## Description
+
+[`POSIX.1-2008`](http://pubs.opengroup.org/onlinepubs/9699919799/) says about [definition of `Line`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_206):
+
+> ### 3.206 Line
+> A sequence of zero or more non- \<newline\> characters plus a terminating \<newline\> character.
+
+And also says about [definition of `Text File`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_403):
+
+> ### 3.403 Text File
+> A file that contains characters organized into zero or more lines. The lines do not contain NUL characters and none can exceed {LINE_MAX} bytes in length, including the \<newline\> character. Although POSIX.1-2008 does not distinguish between text files and binary files (see the ISO C standard), many utilities only produce predictable or meaningful output when operating on text files. The standard utilities that have such restrictions always specify "text files" in their STDIN or INPUT FILES sections.
+
+This Git subcommand checks and fixes newlines at end of file in your Git repository.
+
 ## Usage
 
 TODO: Write usage instructions here
