@@ -25,7 +25,6 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
         <<~EOM
         file0: no newline at end of file
         file2: discarded 1 newline at end of file
-        file3: no newline at end of file
         EOM
       end
       result = `#{cli_cmd} --feed-last-line`
@@ -56,7 +55,6 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
         <<~EOM
         file0: no newline at end of file
         file2: discarded 1 newline at end of file
-        file3: no newline at end of file
         EOM
       end
       result = `#{cli_cmd} --discard-last-newline`
@@ -66,7 +64,6 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       assert_equal_message(result) do
         <<~EOM
         file0: no newline at end of file
-        file3: no newline at end of file
         EOM
       end
     end

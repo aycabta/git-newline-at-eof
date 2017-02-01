@@ -35,10 +35,9 @@ module GitNewlineAtEof
 
     def check_all
       @files.each do |f|
-        if f[:last_newlines_num] == 0
+        if no_newline?(f[:last_newlines_num])
           puts "#{f[:filename]}: no newline at end of file"
-        end
-        if f[:last_newlines_num] > 1
+        elsif discarded_newline?(f[:last_newlines_num])
           discarded_num = f[:last_newlines_num] - 1
           puts "#{f[:filename]}: discarded #{discarded_num} newline#{discarded_num > 1 ? 's' : ''} at end of file"
         end
@@ -47,10 +46,9 @@ module GitNewlineAtEof
 
     def treat_all
       @files.each do |f|
-        if f[:last_newlines_num] == 0
+        if no_newline?(f[:last_newlines_num])
           feed_last_line(f[:filename])
-        end
-        if f[:last_newlines_num] > 1
+        elsif discarded_newline?(f[:last_newlines_num])
           discard_last_newline(f[:filename], f[:last_newlines_num] - 1)
         end
       end
@@ -58,7 +56,7 @@ module GitNewlineAtEof
 
     def feed_last_line_all
       @files.each do |f|
-        if f[:last_newlines_num] == 0
+        if no_newline?(f[:last_newlines_num])
           feed_last_line(f[:filename])
         end
       end
@@ -66,7 +64,7 @@ module GitNewlineAtEof
 
     def discard_last_newline_all
       @files.each do |f|
-        if f[:last_newlines_num] > 1
+        if discarded_newline?(f[:last_newlines_num])
           discard_last_newline(f[:filename], f[:last_newlines_num] - 1)
         end
       end
@@ -94,6 +92,28 @@ module GitNewlineAtEof
     end
     private :discard_last_newline
 
+    def no_newline?(last_newlines_num)
+      if last_newlines_num.nil?
+        false
+      elsif last_newlines_num == 0
+        true
+      else
+        false
+      end
+    end
+    private :no_newline?
+
+    def discarded_newline?(last_newlines_num)
+      if last_newlines_num.nil?
+        false
+      elsif last_newlines_num > 1
+        true
+      else
+        false
+      end
+    end
+    private :discarded_newline?
+
     def files
       `git ls-files`.split("\n").map { |filename|
         filepath = current_dir(filename)
@@ -105,7 +125,7 @@ module GitNewlineAtEof
         end
         {
           filename: filename,
-          last_newlines_num: num.nil? ? 0 : num
+          last_newlines_num: num
         }
       }
     end
