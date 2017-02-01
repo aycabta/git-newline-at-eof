@@ -52,6 +52,8 @@ module GitNewlineAtEof
       ].each do |short, long, desc, proc_obj|
         @opt.on(short, long, desc, &proc_obj)
       end
+      @opt.program_name = 'git newline-at-eof'
+      @opt.version = GitNewlineAtEof::VERSION
       @opt.parse!(argv)
     end
 
