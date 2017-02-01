@@ -12,5 +12,5 @@ def cli_cmd
 end
 
 def assert_equal_message(result)
-  assert_equal(result, yield)
+  assert_equal(yield, result)
 end
