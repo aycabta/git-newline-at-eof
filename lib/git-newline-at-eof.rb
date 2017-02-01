@@ -78,7 +78,7 @@ module GitNewlineAtEof
         end
         {
           filename: filename,
-          last_newlines_num: num
+          last_newlines_num: num.nil? ? 0 : num
         }
       }
     end
