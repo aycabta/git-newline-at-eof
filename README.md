@@ -127,6 +127,19 @@ file3: discarded 1 newline at end of file
 file4: discarded 2 newlines at end of file
 ```
 
+### `--help`
+
+Help.
+
+```bash
+$ git newline-at-eof --help
+Usage: git-newline-at-eof [options]
+    -f, --feed-last-line             Add newline to line what is not terminated by newline at end of file.
+    -d, --discard-last-newline       Remove discarded newline at end of file.
+    -a, --treat-all                  This is identical with --feed-last-line --discard-last-newline.
+    -c, --check-all                  Check and show warning about newline at end of file.
+```
+
 ## Supported Versions
 
 - Ruby 2.3
