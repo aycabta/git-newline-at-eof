@@ -9,31 +9,44 @@ module GitNewlineAtEof
       @is_discard_last_newline = false
       @is_treat_all = false
       @is_check_all = false
+      @is_opted = false
 
       opt = OptionParser.new
       [
         [
           '-f', '--feed-last-line',
           'Add newline to line what is not terminated by newline at end of file.',
-          proc { |v| @is_feed_last_line = true }
+          proc { |v|
+            @is_feed_last_line = true
+            @is_opted = true
+          }
         ],
         [
           '-d',
           '--discard-last-newline',
           'Remove discarded newline at end of file.',
-          proc { |v| @is_discard_last_newline = true }
+          proc { |v|
+            @is_discard_last_newline = true
+            @is_opted = true
+          }
         ],
         [
           '-a',
           '--treat-all',
           'This is identical with --feed-last-line --discard-last-newline.',
-          proc { |v| @is_treat_all = true }
+          proc { |v|
+            @is_treat_all = true
+            @is_opted = true
+          }
         ],
         [
           '-c',
           '--check-all',
           'Check and show warning about newline at end of file.',
-          proc { |v| @is_check_all = true }
+          proc { |v|
+            @is_check_all = true
+            @is_opted = true
+          }
         ]
       ].each do |short, long, desc, proc_obj|
         opt.on(short, long, desc, &proc_obj)
