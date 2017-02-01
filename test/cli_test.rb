@@ -10,17 +10,10 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
   end
   sub_test_case ' with --feed-last-line' do
     setup do
-      create_file(@tmpdir, 'file0') do |f|
-        f.write('abc')
-      end
-      create_file(@tmpdir, 'file1') do |f|
-        f.write("line\n")
-      end
-      create_file(@tmpdir, 'file2') do |f|
-        f.write("line\n\n")
-      end
-      create_file(@tmpdir, 'file3') do |f|
-      end
+      create_file(@tmpdir, 'file0', 'abc')
+      create_file(@tmpdir, 'file1', "line\n")
+      create_file(@tmpdir, 'file2', "line\n\n")
+      create_file(@tmpdir, 'file3', '')
       Dir.chdir(@tmpdir)
       `git init`
       `git add .`

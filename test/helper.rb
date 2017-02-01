@@ -1,9 +1,9 @@
 require 'test-unit'
 
-def create_file(dir, filename)
+def create_file(dir, filename, substance)
   filepath = File.join(dir, filename)
   File.open(filepath, 'w') do |f|
-    yield f if block_given?
+    f.write(substance)
   end
 end
 
