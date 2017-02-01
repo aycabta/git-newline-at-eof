@@ -57,6 +57,8 @@ $ git commit -m "Fix last line terminator"
  1 file changed, 1 insertion(+), 1 deletion(-)
 ```
 
+Zero byte file has zero newline for termination because it has zero line.
+
 ### `--discard-last-newline`
 
 Remove discarded newline at end of file.
