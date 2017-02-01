@@ -5,11 +5,12 @@ module GitNewlineAtEof
   class Application
     def initialize(argv)
       @files = files
-      @is_feed_last_line = false
-      @is_discard_last_newline = false
-      @is_treat_all = false
-      @is_check_all = false
-      @is_opted = false
+      @options = {}
+      @options[:feed_last_line] = false
+      @options[:discard_last_newline] = false
+      @options[:treat_all] = false
+      @options[:check_all] = false
+      @options[:opted] = false
 
       opt = OptionParser.new
       [
@@ -17,8 +18,8 @@ module GitNewlineAtEof
           '-f', '--feed-last-line',
           'Add newline to line what is not terminated by newline at end of file.',
           proc { |v|
-            @is_feed_last_line = true
-            @is_opted = true
+            @options[:feed_last_line] = true
+            @options[:opted] = true
           }
         ],
         [
@@ -26,8 +27,8 @@ module GitNewlineAtEof
           '--discard-last-newline',
           'Remove discarded newline at end of file.',
           proc { |v|
-            @is_discard_last_newline = true
-            @is_opted = true
+            @options[:discard_last_newline] = true
+            @options[:opted] = true
           }
         ],
         [
@@ -35,8 +36,8 @@ module GitNewlineAtEof
           '--treat-all',
           'This is identical with --feed-last-line --discard-last-newline.',
           proc { |v|
-            @is_treat_all = true
-            @is_opted = true
+            @options[:treat_all] = true
+            @options[:opted] = true
           }
         ],
         [
@@ -44,8 +45,8 @@ module GitNewlineAtEof
           '--check-all',
           'Check and show warning about newline at end of file.',
           proc { |v|
-            @is_check_all = true
-            @is_opted = true
+            @options[:check_all] = true
+            @options[:opted] = true
           }
         ]
       ].each do |short, long, desc, proc_obj|
@@ -55,15 +56,15 @@ module GitNewlineAtEof
     end
 
     def run
-      if @is_check_all
+      if @options[:check_all]
         check_all
-      elsif @is_treat_all
+      elsif @options[:treat_all]
         treat_all
       else
-        if @is_feed_last_line
+        if @options[:feed_last_line]
           feed_last_line_all
         end
-        if @is_discard_last_newline
+        if @options[:discard_last_newline]
           discard_last_newline_all
         end
       end
