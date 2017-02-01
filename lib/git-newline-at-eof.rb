@@ -48,6 +48,24 @@ module GitNewlineAtEof
             @options[:check_all] = true
             @options[:opted] = true
           }
+        ],
+        [
+          '-h',
+          '--help',
+          'Show this message.',
+          proc { |v|
+            puts @opt.help
+            @options[:opted] = true
+          }
+        ],
+        [
+          '-v',
+          '--version',
+          'Show version.',
+          proc {
+            @options[:opted] = true
+            puts @opt.ver
+          }
         ]
       ].each do |short, long, desc, proc_obj|
         @opt.on(short, long, desc, &proc_obj)
