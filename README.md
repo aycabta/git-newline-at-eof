@@ -22,7 +22,106 @@ This Git subcommand checks and fixes newlines at end of file in your Git reposit
 
 ## Usage
 
-TODO: Write usage instructions here
+### `--feed-last-line`
+
+Add newline to line what is not terminated by newline at end of file.
+
+```bash
+$ mkdir /tmp/test
+$ cd /tmp/test
+$ printf "" > file0
+$ printf "aaa" > file1
+$ printf "bbb\n" > file2
+$ git init
+Initialized empty Git repository in /tmp/test/.git/
+$ git add .
+$ git commit -m "Initial commit"
+[master (root-commit) 7c4d543] Initial commit
+ 3 files changed, 2 insertions(+)
+ create mode 100644 file0
+ create mode 100644 file1
+ create mode 100644 file2
+$ git newline-at-eof --feed-last-line
+$ git diff
+diff --git a/file1 b/file1
+index 7c4a013..72943a1 100644
+--- a/file1
++++ b/file1
+@@ -1 +1 @@
+-aaa
+\ No newline at end of file
++aaa
+$ git add file1
+$ git commit -m "Fix last line terminator"
+[master aba3275] Fix last line terminator
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+### `--discard-last-newline`
+
+Remove discarded newline at end of file.
+
+```bash
+$ mkdir /tmp/test
+$ cd /tmp/test
+$ printf "" > file0
+$ printf "aaa\n" > file1
+$ printf "bbb\n\n\n" > file2
+$ git init
+Initialized empty Git repository in /tmp/test/.git/
+$ git add .
+$ git commit -m "Initial commit"
+[master (root-commit) 1ef005b] Initial commit
+ 3 files changed, 4 insertions(+)
+ create mode 100644 file0
+ create mode 100644 file1
+ create mode 100644 file2
+$ git newline-at-eof --discard-last-newline
+$ git diff
+diff --git a/file2 b/file2
+index 6da7e67..f761ec1 100644
+--- a/file2
++++ b/file2
+@@ -1,3 +1 @@
+ bbb
+-
+-
+$ git add file1
+$ git commit -m "Discard newlines at eof"
+[master 68de945] Discard newlines at eof
+ 1 file changed, 2 deletions(-)
+```
+
+### `--treat-all`
+
+This is identical with `--feed-last-line --discard-last-newline`.
+
+### `--check-all`
+
+Check and show warning about newline at end of file.
+
+```bash
+$ mkdir /tmp/test
+$ cd /tmp/test
+$ printf "" > file0
+$ printf "aaa" > file1
+$ printf "bbb\n\n" > file2
+$ printf "ccc\n\n\n" > file3
+$ git init
+Initialized empty Git repository in /tmp/test/.git/
+$ git add .
+$ git commit -m "Initial commit"
+[master (root-commit) 28cf1f0] Initial commit
+ 4 files changed, 6 insertions(+)
+ create mode 100644 file0
+ create mode 100644 file1
+ create mode 100644 file2
+ create mode 100644 file3
+$ git newline-at-eof --check-all
+file1: no newline at end of file
+file2: discarded 1 newline at end of file
+file3: discarded 2 newlines at end of file
+```
 
 ## Supported Versions
 
