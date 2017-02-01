@@ -105,22 +105,24 @@ $ mkdir /tmp/test
 $ cd /tmp/test
 $ printf "" > file0
 $ printf "aaa" > file1
-$ printf "bbb\n\n" > file2
-$ printf "ccc\n\n\n" > file3
+$ printf "bbb\n" > file2
+$ printf "ccc\n\n" > file3
+$ printf "ddd\n\n\n" > file4
 $ git init
 Initialized empty Git repository in /tmp/test/.git/
 $ git add .
 $ git commit -m "Initial commit"
-[master (root-commit) 28cf1f0] Initial commit
- 4 files changed, 6 insertions(+)
+[master (root-commit) 0806035] Initial commit
+ 5 files changed, 7 insertions(+)
  create mode 100644 file0
  create mode 100644 file1
  create mode 100644 file2
  create mode 100644 file3
+ create mode 100644 file4
 $ git newline-at-eof --check-all
 file1: no newline at end of file
-file2: discarded 1 newline at end of file
-file3: discarded 2 newlines at end of file
+file3: discarded 1 newline at end of file
+file4: discarded 2 newlines at end of file
 ```
 
 ## Supported Versions
