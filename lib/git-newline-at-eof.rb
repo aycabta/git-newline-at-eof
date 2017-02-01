@@ -16,7 +16,7 @@ module GitNewlineAtEof
       [
         [
           '-f', '--feed-last-line',
-          'Add newline to line what is not terminated by newline at end of file.',
+          'Add newline to not terminated line at end of file.',
           proc { |v|
             @options[:feed_last_line] = true
             @options[:opted] = true
@@ -34,7 +34,7 @@ module GitNewlineAtEof
         [
           '-a',
           '--treat-all',
-          'This is identical with --feed-last-line --discard-last-newline.',
+          'This is identical with -f -d.',
           proc { |v|
             @options[:treat_all] = true
             @options[:opted] = true
@@ -72,6 +72,7 @@ module GitNewlineAtEof
       end
       @opt.program_name = 'git newline-at-eof'
       @opt.version = GitNewlineAtEof::VERSION
+      @opt.summary_width = 27
       @opt.parse!(argv)
     end
 
