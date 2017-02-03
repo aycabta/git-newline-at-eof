@@ -166,3 +166,5 @@ The gem is available as open source under the terms of the [MIT License](http://
 ## Badges
 
 [![Build Status](https://travis-ci.org/aycabta/git-newline-at-eof.svg)](https://travis-ci.org/aycabta/git-newline-at-eof)
+
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/aycabta/git-newline-at-eof?branch=master&svg=true)](https://ci.appveyor.com/project/aycabta/git-newline-at-eof)
