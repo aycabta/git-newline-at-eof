@@ -180,7 +180,7 @@ module GitNewlineAtEof
         filepath = current_dir(filename)
         num = 0
         begin
-          num = File.open(filepath, 'rt') { |f| count_last_newlines(f) }
+          num = File.open(filepath, 'rb') { |f| count_last_newlines(f) }
         rescue
           num = nil
         end
@@ -196,12 +196,19 @@ module GitNewlineAtEof
       if f.size == 0
         nil
       else
+        prev_char = nil
         count = 0
         f.size.step(1, -1) do |offset|
           offset -= 1
           f.seek(offset, IO::SEEK_SET)
-          if f.getc == "\n"
+          if (c = f.getc) == "\n"
             count += 1
+            prev_char = c
+          elsif c == "\r"
+            unless prev_char == "\n"
+              count += 1
+            end
+            prev_char = c
           else
             break
           end

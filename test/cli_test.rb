@@ -7,8 +7,10 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
     Dir.chdir(@tmpdir)
   end
   def teardown
-    FileUtils.rm(Dir.glob('*.*'))
-    FileUtils.remove_entry_secure(@tmpdir)
+    unless RbConfig::CONFIG['host_os'].match(/mswin|msys|mingw|cygwin|bccwin|wince|emc/)
+      FileUtils.rm(Dir.glob('*.*'))
+      FileUtils.remove_entry_secure(@tmpdir)
+    end
   end
   sub_test_case ' with --check-all' do
     setup do
