@@ -4,6 +4,7 @@ require 'tmpdir'
 class GitNewlineAtEof::Test < Test::Unit::TestCase
   def setup
     @tmpdir = Dir.mktmpdir
+    Dir.chdir(@tmpdir)
   end
   def teardown
     FileUtils.remove_entry_secure(@tmpdir)
@@ -16,7 +17,6 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       create_file(@tmpdir, 'file3', "line\n\n")
       create_file(@tmpdir, 'file4', "line\n\n\n")
       create_file(@tmpdir, 'file5', "line\n\n\n\n")
-      Dir.chdir(@tmpdir)
       `git init`
       `git add .`
       `git commit -m 'Initial commit'`
@@ -39,7 +39,6 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       create_file(@tmpdir, 'file1', "line\n")
       create_file(@tmpdir, 'file2', "line\n\n")
       create_file(@tmpdir, 'file3', '')
-      Dir.chdir(@tmpdir)
       `git init`
       `git add .`
       `git commit -m 'Initial commit'`
@@ -69,7 +68,6 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       create_file(@tmpdir, 'file1', "line\n")
       create_file(@tmpdir, 'file2', "line\n\n")
       create_file(@tmpdir, 'file3', '')
-      Dir.chdir(@tmpdir)
       `git init`
       `git add .`
       `git commit -m 'Initial commit'`
@@ -99,7 +97,6 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       create_file(@tmpdir, 'file1', "line\n")
       create_file(@tmpdir, 'file2', "line\n\n")
       create_file(@tmpdir, 'file3', '')
-      Dir.chdir(@tmpdir)
       `git init`
       `git add .`
       `git commit -m 'Initial commit'`
