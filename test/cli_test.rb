@@ -7,6 +7,7 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
     Dir.chdir(@tmpdir)
   end
   def teardown
+    FileUtils.rm(Dir.glob('*.*'))
     FileUtils.remove_entry_secure(@tmpdir)
   end
   sub_test_case ' with --check-all' do
