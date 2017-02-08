@@ -119,4 +119,28 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       assert_equal('', result)
     end
   end
+  sub_test_case ' with binary file' do
+    setup do
+      create_file(@tmpdir, 'file0', 'abc')
+      create_file(@tmpdir, 'file1', "line\n")
+      create_file(@tmpdir, 'file2', "line\n\n")
+      create_file(@tmpdir, 'file3', '黒須')
+      create_file(@tmpdir, 'file4', '白玉')
+      create_file(@tmpdir, 'file5', (0x00..0xFF).map(&:chr).concat(["\n"] * 10).join)
+      `git init`
+      `git add .`
+      `git commit -m 'Initial commit'`
+    end
+    test 'requests the correct resource' do
+      result = `#{cli_cmd} --check-all`
+      assert_equal_message(result) do
+        <<~EOM
+        file0: no newline at end of file
+        file2: discarded 1 newline at end of file
+        file3: no newline at end of file
+        file4: no newline at end of file
+        EOM
+      end
+    end
+  end
 end
