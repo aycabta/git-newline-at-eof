@@ -1,5 +1,6 @@
 require 'git-newline-at-eof/version'
 require 'optparse'
+require 'shellwords'
 
 module GitNewlineAtEof
   class Application
@@ -176,7 +177,10 @@ module GitNewlineAtEof
     private :discarded_newline?
 
     def files
-      `git ls-files`.split("\n").map { |filename|
+      `git ls-files`.split("\n").select{ |filename|
+        `git grep -I --name-only --untracked -e . -- #{Shellwords.shellescape(filename)}`
+        $? == 0
+      }.map { |filename|
         filepath = current_dir(filename)
         num = 0
         begin
