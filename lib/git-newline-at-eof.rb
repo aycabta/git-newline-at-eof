@@ -178,6 +178,7 @@ module GitNewlineAtEof
 
     def files
       `git ls-files`.split("\n").select{ |filename|
+        # check text file
         `git grep -I --name-only --untracked -e . -- #{Shellwords.shellescape(filename)}`
         $? == 0
       }.map { |filename|
