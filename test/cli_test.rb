@@ -124,8 +124,8 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       create_file(@tmpdir, 'file0', 'abc')
       create_file(@tmpdir, 'file1', "line\n")
       create_file(@tmpdir, 'file2', "line\n\n")
-      create_file(@tmpdir, 'file3', '黒須')
-      create_file(@tmpdir, 'file4', '白玉')
+      create_file(@tmpdir, 'file3', '黒須') # multi byte char
+      create_file(@tmpdir, 'file4', '白玉') # multi byte char
       create_file(@tmpdir, 'file5', (0x00..0xFF).map(&:chr).concat(["\n"] * 10).join)
       `git init`
       `git add .`
