@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['aycabta@gmail.com']
 
   spec.summary       = %q{Check and fix newline at end of file in Git respository.}
-  spec.description   = %q{Check and fix newline at end of file in Git respository.}
+  spec.description   = %Q{Check and fix newline at end of file in Git respository.\n}
   spec.homepage      = 'https://github.com/aycabta/git-newline-at-eof'
   spec.license       = 'MIT'
 
