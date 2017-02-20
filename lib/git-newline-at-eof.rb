@@ -80,11 +80,13 @@ module GitNewlineAtEof
     def run
       unless @options[:opted]
         puts @opt.help
+        0
       end
       if @options[:check_all]
         check_all
       elsif @options[:treat_all]
         treat_all
+        0
       else
         if @options[:feed_last_line]
           feed_last_line_all
@@ -92,17 +94,26 @@ module GitNewlineAtEof
         if @options[:discard_last_newline]
           discard_last_newline_all
         end
+        0
       end
     end
 
     def check_all
+      exist_warning = false
       @files.each do |f|
         if no_newline?(f[:last_newlines_num])
+          exist_warning = true
           puts "#{f[:filename]}: no newline at end of file"
         elsif discarded_newline?(f[:last_newlines_num])
+          exist_warning = true
           discarded_num = f[:last_newlines_num] - 1
           puts "#{f[:filename]}: discarded #{discarded_num} newline#{discarded_num > 1 ? 's' : ''} at end of file"
         end
+      end
+      if exist_warning
+        1
+      else
+        0
       end
     end
 

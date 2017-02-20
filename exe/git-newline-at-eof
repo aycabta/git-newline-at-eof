@@ -4,4 +4,4 @@ $: << File.expand_path('../../lib/', __FILE__)
 
 require 'git-newline-at-eof'
 
-GitNewlineAtEof::Application.new(ARGV).run
+exit(GitNewlineAtEof::Application.new(ARGV).run)
