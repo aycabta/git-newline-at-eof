@@ -36,6 +36,7 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       end
     end
   end
+  # TODO check return value for --check-all
   sub_test_case ' with --feed-last-line' do
     setup do
       create_file(@tmpdir, 'file0', 'abc')
