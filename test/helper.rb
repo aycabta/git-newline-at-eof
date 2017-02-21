@@ -12,6 +12,6 @@ def cli_cmd
   "ruby #{expanded_path}"
 end
 
-def assert_equal_message(result)
-  assert_equal(yield, result)
+def assert_equal_message(message, result)
+  assert_equal(message, result)
 end
