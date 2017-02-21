@@ -26,7 +26,7 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
     end
     test 'requests with some warningns' do
       result = `#{cli_cmd} --check-all`
-      refute_equal(0, $?.to_i)
+      assert_equal(1, $?.exitstatus)
       assert_equal_message(<<~EOM, result)
         file1: no newline at end of file
         file3: discarded 1 newline at end of file
@@ -45,7 +45,7 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
     end
     test 'with now warnings' do
       result = `#{cli_cmd} --check-all`
-      assert_equal(0, $?.to_i)
+      assert_equal(0, $?.exitstatus)
       assert_equal_message('', result)
     end
   end
@@ -67,7 +67,7 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       EOM
       result = `#{cli_cmd} --feed-last-line`
       assert_equal('', result)
-      assert_equal(0, $?)
+      assert_equal(0, $?.exitstatus)
       result = `#{cli_cmd} --check-all`
       assert_equal_message(<<~EOM, result)
         file2: discarded 1 newline at end of file
@@ -92,7 +92,7 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       EOM
       result = `#{cli_cmd} --discard-last-newline`
       assert_equal('', result)
-      assert_equal(0, $?)
+      assert_equal(0, $?.exitstatus)
       result = `#{cli_cmd} --check-all`
       assert_equal_message(<<~EOM, result)
         file0: no newline at end of file
@@ -117,7 +117,7 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       EOM
       result = `#{cli_cmd} --treat-all`
       assert_equal('', result)
-      assert_equal(0, $?)
+      assert_equal(0, $?.exitstatus)
       result = `#{cli_cmd} --check-all`
       assert_equal('', result)
     end
