@@ -47,7 +47,7 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
     end
     test 'with now warnings' do
       result = `#{cli_cmd} --check-all`
-      assert_equal($?.to_i, 0)
+      assert_equal(0, $?.to_i)
       assert_equal_message(result) do
         <<~EOM
         EOM
@@ -73,8 +73,8 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
         EOM
       end
       result = `#{cli_cmd} --feed-last-line`
-      assert_equal(result, '')
-      assert_equal($?, 0)
+      assert_equal('', result)
+      assert_equal(0, $?)
       result = `#{cli_cmd} --check-all`
       assert_equal_message(result) do
         <<~EOM
@@ -102,8 +102,8 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
         EOM
       end
       result = `#{cli_cmd} --discard-last-newline`
-      assert_equal(result, '')
-      assert_equal($?, 0)
+      assert_equal('', result)
+      assert_equal(0, $?)
       result = `#{cli_cmd} --check-all`
       assert_equal_message(result) do
         <<~EOM
@@ -131,8 +131,8 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
         EOM
       end
       result = `#{cli_cmd} --treat-all`
-      assert_equal(result, '')
-      assert_equal($?, 0)
+      assert_equal('', result)
+      assert_equal(0, $?)
       result = `#{cli_cmd} --check-all`
       assert_equal('', result)
     end
