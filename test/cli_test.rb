@@ -24,8 +24,9 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       `git add .`
       `git commit -m 'Initial commit'`
     end
-    test 'requests the correct resource' do
+    test 'requests with some warningns' do
       result = `#{cli_cmd} --check-all`
+      refute_equal(0, $?.to_i)
       assert_equal_message(result) do
         <<~EOM
         file1: no newline at end of file
@@ -36,7 +37,23 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       end
     end
   end
-  # TODO check return value for --check-all
+  sub_test_case ' with --check-all without warning' do
+    setup do
+      create_file(@tmpdir, 'file0', '')
+      create_file(@tmpdir, 'file2', "line\n")
+      `git init`
+      `git add .`
+      `git commit -m 'Initial commit'`
+    end
+    test 'with now warnings' do
+      result = `#{cli_cmd} --check-all`
+      assert_equal($?.to_i, 0)
+      assert_equal_message(result) do
+        <<~EOM
+        EOM
+      end
+    end
+  end
   sub_test_case ' with --feed-last-line' do
     setup do
       create_file(@tmpdir, 'file0', 'abc')
