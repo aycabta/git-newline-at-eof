@@ -83,7 +83,7 @@ module GitNewlineAtEof
       end
       IO.popen('git rev-parse', :err => [:child, :out])
       if $? != 0
-        puts 'This is not Git dir.'
+        puts 'Here is not Git dir.'
         exit(128)
       end
       @files = files
