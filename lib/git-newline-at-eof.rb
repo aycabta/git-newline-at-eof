@@ -5,7 +5,6 @@ require 'shellwords'
 module GitNewlineAtEof
   class Application
     def initialize(argv)
-      @files = files
       @options = {}
       @options[:feed_last_line] = false
       @options[:discard_last_newline] = false
@@ -82,6 +81,12 @@ module GitNewlineAtEof
         puts @opt.help
         0
       end
+      IO.popen('git rev-parse', :err => [:child, :out])
+      if $? != 0
+        puts 'This is not Git dir.'
+        exit(128)
+      end
+      @files = files
       if @options[:check_all]
         check_all
       elsif @options[:treat_all]
