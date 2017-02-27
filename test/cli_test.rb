@@ -150,6 +150,7 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
     end
     test 'shows error message' do
       result = `#{cli_cmd} --check-all`
+      assert_equal(128, $?.exitstatus)
       assert_equal_message(<<~EOM, result)
         Here is not Git dir.
       EOM
