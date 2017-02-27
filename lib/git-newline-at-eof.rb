@@ -1,10 +1,12 @@
 require 'git-newline-at-eof/version'
 require 'optparse'
 require 'shellwords'
+require 'open3'
 
 module GitNewlineAtEof
   class Application
     def initialize(argv)
+      @in_git_dir = nil
       @options = {}
       @options[:feed_last_line] = false
       @options[:discard_last_newline] = false
@@ -81,8 +83,7 @@ module GitNewlineAtEof
         puts @opt.help
         0
       end
-      IO.popen('git rev-parse', :err => [:child, :out])
-      if $? != 0
+      if !in_git_dir?
         puts 'Here is not Git dir.'
         exit(128)
       end
@@ -100,6 +101,19 @@ module GitNewlineAtEof
           discard_last_newline_all
         end
         0
+      end
+    end
+
+    def in_git_dir?
+      if !@in_git_dir.nil?
+        @in_git_dir
+      else
+        o, e, exit_status = Open3.capture3('git rev-parse')
+        if exit_status == 0
+          @in_git_dir = true
+        else
+          @in_git_dir = false
+        end
       end
     end
 
