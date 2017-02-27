@@ -144,4 +144,15 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       EOM
     end
   end
+  sub_test_case ' with non Git dir' do
+    setup do
+      create_file(@tmpdir, 'example', 'abc')
+    end
+    test 'shows error message' do
+      result = `#{cli_cmd} --check-all`
+      assert_equal_message(<<~EOM, result)
+        Here is not Git dir.
+      EOM
+    end
+  end
 end
