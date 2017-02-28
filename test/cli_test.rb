@@ -136,6 +136,7 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
     end
     test 'requests the correct resource' do
       result = `#{cli_cmd} --check-all`
+      assert_equal(1, $?.exitstatus)
       assert_equal_message(<<~EOM, result)
         file0: no newline at end of file
         file2: discarded 1 newline at end of file
