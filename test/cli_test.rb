@@ -24,7 +24,7 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       `git add .`
       `git commit -m 'Initial commit'`
     end
-    test 'requests with some warningns' do
+    test 'shows warning files' do
       result = `#{cli_cmd} --check-all`
       assert_equal(1, $?.exitstatus)
       assert_equal_message(<<~EOM, result)
@@ -43,7 +43,7 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       `git add .`
       `git commit -m 'Initial commit'`
     end
-    test 'with now warnings' do
+    test 'shows no messages' do
       result = `#{cli_cmd} --check-all`
       assert_equal(0, $?.exitstatus)
       assert_equal_message('', result)
@@ -59,7 +59,7 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       `git add .`
       `git commit -m 'Initial commit'`
     end
-    test 'requests the correct resource' do
+    test 'fixes discarded newlines' do
       result = `#{cli_cmd} --check-all`
       assert_equal_message(<<~EOM, result)
         file0: no newline at end of file
@@ -84,7 +84,7 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       `git add .`
       `git commit -m 'Initial commit'`
     end
-    test 'requests the correct resource' do
+    test 'fixes no newline' do
       result = `#{cli_cmd} --check-all`
       assert_equal_message(<<~EOM, result)
         file0: no newline at end of file
@@ -109,7 +109,7 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       `git add .`
       `git commit -m 'Initial commit'`
     end
-    test 'requests the correct resource' do
+    test 'fixes all' do
       result = `#{cli_cmd} --check-all`
       assert_equal_message(<<~EOM, result)
         file0: no newline at end of file
@@ -134,7 +134,7 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       `git add .`
       `git commit -m 'Initial commit'`
     end
-    test 'requests the correct resource' do
+    test 'through binary files' do
       result = `#{cli_cmd} --check-all`
       assert_equal(1, $?.exitstatus)
       assert_equal_message(<<~EOM, result)
