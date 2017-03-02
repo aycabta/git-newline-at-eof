@@ -157,4 +157,11 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       EOM
     end
   end
+  sub_test_case ' with --help' do
+    test 'shows help' do
+      result = `#{cli_cmd} --help`
+      assert_equal(0, $?.exitstatus)
+      refute_empty(result)
+    end
+  end
 end
