@@ -163,5 +163,10 @@ class GitNewlineAtEof::Test < Test::Unit::TestCase
       assert_equal(0, $?.exitstatus)
       refute_empty(result)
     end
+    test 'shows help without any options' do
+      result = `#{cli_cmd}`
+      assert_equal(0, $?.exitstatus)
+      refute_empty(result)
+    end
   end
 end
