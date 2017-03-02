@@ -79,7 +79,7 @@ module GitNewlineAtEof
       @opt.parse!(argv)
     end
 
-    def run
+    def run # return value is used for exit status
       if !@options[:opted] || @options[:help]
         puts @opt.help
         0
