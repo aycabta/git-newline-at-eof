@@ -12,6 +12,7 @@ module GitNewlineAtEof
       @options[:discard_last_newline] = false
       @options[:treat_all] = false
       @options[:check_all] = false
+      @options[:help] = false
       @options[:opted] = false
 
       @opt = OptionParser.new
@@ -56,7 +57,7 @@ module GitNewlineAtEof
           '--help',
           'Show this message.',
           proc { |v|
-            puts @opt.help
+            @options[:help] = true
             @options[:opted] = true
           }
         ],
@@ -79,7 +80,7 @@ module GitNewlineAtEof
     end
 
     def run
-      unless @options[:opted]
+      if !@options[:opted] || @options[:help]
         puts @opt.help
         0
       end
