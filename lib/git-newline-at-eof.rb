@@ -83,25 +83,25 @@ module GitNewlineAtEof
       if !@options[:opted] || @options[:help]
         puts @opt.help
         0
-      end
-      if !in_git_dir?
+      elsif !in_git_dir?
         puts 'Here is not Git dir.'
-        exit(128)
-      end
-      @files = files
-      if @options[:check_all]
-        check_all
-      elsif @options[:treat_all]
-        treat_all
-        0
+        128
       else
-        if @options[:feed_last_line]
-          feed_last_line_all
+        @files = files
+        if @options[:check_all]
+          check_all
+        elsif @options[:treat_all]
+          treat_all
+          0
+        else
+          if @options[:feed_last_line]
+            feed_last_line_all
+          end
+          if @options[:discard_last_newline]
+            discard_last_newline_all
+          end
+          0
         end
-        if @options[:discard_last_newline]
-          discard_last_newline_all
-        end
-        0
       end
     end
 
