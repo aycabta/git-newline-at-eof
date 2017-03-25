@@ -89,7 +89,12 @@ module GitNewlineAtEof
       else
         @files = files
         if @options[:check_all]
-          check_all
+          case check_all
+          when :clean
+            0
+          when :warning
+            1
+          end
         elsif @options[:treat_all]
           treat_all
           0
@@ -131,9 +136,9 @@ module GitNewlineAtEof
         end
       end
       if exist_warning
-        1
+        :warning
       else
-        0
+        :clean
       end
     end
 
