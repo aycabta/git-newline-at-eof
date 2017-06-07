@@ -168,15 +168,14 @@ module GitNewlineAtEof
       end
     end
 
-    def feed_last_line(filename)
+    private def feed_last_line(filename)
       filepath = current_dir(filename)
       File.open(filepath, 'at') do |f|
         f.write("\n")
       end
     end
-    private :feed_last_line
 
-    def discard_last_newline(filename, discard_num)
+    private def discard_last_newline(filename, discard_num)
       filepath = current_dir(filename)
       lines = nil
       File.open(filepath, 'rt') do |f|
@@ -188,9 +187,8 @@ module GitNewlineAtEof
         end
       end
     end
-    private :discard_last_newline
 
-    def no_newline?(last_newlines_num)
+    private def no_newline?(last_newlines_num)
       if last_newlines_num.nil?
         false
       elsif last_newlines_num == 0
@@ -199,9 +197,8 @@ module GitNewlineAtEof
         false
       end
     end
-    private :no_newline?
 
-    def discarded_newline?(last_newlines_num)
+    private def discarded_newline?(last_newlines_num)
       if last_newlines_num.nil?
         false
       elsif last_newlines_num > 1
@@ -210,9 +207,8 @@ module GitNewlineAtEof
         false
       end
     end
-    private :discarded_newline?
 
-    def files
+    private def files
       `git ls-files`.split("\n").select{ |filename|
         # check text file
         `git grep -I --name-only --untracked -e . -- #{Shellwords.shellescape(filename)}`
@@ -231,9 +227,8 @@ module GitNewlineAtEof
         }
       }
     end
-    private :files
 
-    def count_last_newlines(f)
+    private def count_last_newlines(f)
       if f.size == 0
         nil
       else
@@ -257,16 +252,13 @@ module GitNewlineAtEof
         count
       end
     end
-    private :count_last_newlines
 
-    def repository_toplevel_dir
+    private def repository_toplevel_dir
       `git rev-parse --show-toplevel`.chomp
     end
-    private :repository_toplevel_dir
 
-    def current_dir(filename)
+    private def current_dir(filename)
       File.join(repository_toplevel_dir, `git rev-parse --show-prefix`.chomp, filename)
     end
-    private :current_dir
   end
 end
