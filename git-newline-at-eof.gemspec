@@ -6,7 +6,7 @@ require 'git-newline-at-eof/version'
 Gem::Specification.new do |spec|
   spec.name          = 'git-newline-at-eof'
   spec.version       = GitNewlineAtEof::VERSION
-  spec.authors       = ['Code Ass']
+  spec.authors       = ['aycabta']
   spec.email         = ['aycabta@gmail.com']
 
   spec.summary       = %q{Check and fix newline at end of file in Git respository.}
